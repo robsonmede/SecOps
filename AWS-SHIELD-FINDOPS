@@ -1,0 +1,50 @@
+AWS Shield + AWS WAF
+Proteção gerenciada contra DdoS
+O que é o AWS Shield:
+O AWS Shield é um serviço gerenciado que fornece proteção contra ataques distribuídos de
+negação de serviço (DDoS) para os aplicativos executados na AWS. O AWS Shield Standard é
+habilitado automaticamente a todos os clientes da AWS sem custo adicional. O AWS Shield
+Advanced é um serviço pago opcional. 
+
+O AWS Shield Advanced oferece proteções adicionais contra ataques maiores e mais
+sofisticados para aplicativos executados no Amazon EC2, no Elastic Load Balancing (ELB), no
+Amazon CloudFront, no AWS Global Accelerator e no Route 53.
+O que é o AWS Shield Standard?
+O AWS Shield Standard oferece a todos os clientes da AWS proteção contra ataques comuns e
+mais frequentes à infraestrutura (camadas 3 e 4), como floods de SYN/UDP, ataques de reflexão e 
+outros tipos de ataque, proporcionando alta disponibilidade aos aplicativos na AWS.
+
+Shield Standart - DDOS
+Ataques de camada 3 e 4 ( Transporte e UDP)
+Route 53 / Cloud Front
+Configurar o WEB-ACL
+===================================
+Shield Advanced - DDOS
+3 mil dólares / Mês
+Suporte / Time de Apoio da AWS
++ Qtd tráfego do DDOS.
++ WAF
+Ataques Web (Camada 7) Aplicação
+====================================
+
+Custo do WAF (Composição de Regras - http/https)
+Regras complexas e simples
+Relacionado a complexidade da regra – WCU (pass units) custo específico
+Role relacionado com IP
+
+AWS WAF
+Você será cobrado por cada Access Control List (ACL – Lista de controle de acesso) da Web
+que criar e por cada regra criada por ACL da Web. Além disso, você será cobrado pelo número de 
+solicitações da Web processadas pela ACL da Web. O preço é o mesmo em todas as regiões da 
+AWS. As taxas mensais são calculadas pro-rata por hora. O preço do AWS WAF Classic é o mesmo 
+mostrado na tabela abaixo.
+
+DESATUALIZADO - VERIFICAR
+Tipo de recurso
+Preço
+ACL da web
+Regra
+Solicitação
+5,00 USD por mês (hora rateada)
+1,00 USD por mês (hora rateada)
+0,60 USD por 1 milhão de solicitações
