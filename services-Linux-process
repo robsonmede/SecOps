@@ -1,0 +1,26 @@
+🔹 Verifique serviços em execução (systemd)
+→ Listar serviços ativos: $ systemctl list-units --type=service
+→ Verifique status de um serviço específico: $ systemctl status exemplo.service
+→ Ver serviços habilitados para iniciar com o sistema: $ systemctl list-unit-files --type=service
+
+🔹 Verifique serviços escutando portas (de rede)
+→ Utilize o "ss" (substitui o netstat): $ ss -tuln
+→ Para ver qual processo está associado a uma porta: $ ss -tulnp
+→ Exemplo com netstat (se instalado): $ netstat -tulnp
+
+🔹 Desative serviços desnecessários
+→ Parar e desabilitar: 
+$ systemctl stop nome-do-serviço
+$ systemctl disable nome-do-serviço
+→ Ex: desabilitar servidor FTP não utilizado:
+$ systemctl stop vsftpd
+$ systemctl disable vsftpd
+
+🔹 Automatize verificações (opcional):
+→ Você pode usar um pequeno script para listar serviços e enviar alertas:
+#!/bin/bash
+echo "Serviços ativos:"
+systemctl list-units --type=service --state=running
+
+echo "Processos de alto consumo:"
+ps aux --sort=-%mem | head -n 10
