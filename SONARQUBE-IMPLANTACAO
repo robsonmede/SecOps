@@ -1,0 +1,84 @@
+INSTALAÇÃO E CONFIGURAÇÃO INICIAL DO SONARQUBE
+
+Instalação do PostGreSQL
+
+yum -y install postgresql13 postgresql13-server
+yum update
+yum clean all
+yum -y install postgresql13 postgresql13-server
+dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+dnf -qy module disable postgresql
+yum update
+yum install postgresql
+yum install postgresql13
+yum install postgresql13-server
+sudo yum install epel-release
+dnf install epel-release
+dnf config-manager --set-enabled PowerTools
+yum config-manager --set-enabled PowerTools
+dnf config-manager --set-enabled PowerTools
+vim CentOS-Stream-PowerTools.repo
+yum update
+sudo yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+yum -y install postgresql13 postgresql13-server
+sudo systemctl enable postgresql-13
+/usr/bin/postgresql-13-setup initdb
+sudo systemctl start postgresql-13
+sudo -i -u postgres
+passwd postgres
+su - postgres
+sudo firewall-cmd --add-service=postgresql --permanent
+firewall-cmd –reload
+
+su - postgres
+createuser sonar
+alter user sonar encrypted password 'sonar';
+
+#psql
+create database sonarqube owner sonar;
+grant all privileges on database sonarqube to sonar;
+grant all on schema public to sonarqube;
+
+Criar os volumes no Docker para o SonarQube
+
+ docker volume create --name sonarqube_data
+docker volume create --name sonarqube_extensions
+docker volume create --name sonarqube_logs
+docker volume create --name sonarqube_temp
+
+Criar o Dockerfile:
+
+vim Dockerfile
+
+FROM sonarqube:8.9-community
+
+Criar o .ENV:
+
+vim .env
+
+SONAR_JDBC_URL = "jdbc:postgresql://localhost:5432/userdb" \
+SONAR_JDBC_USERNAME = "userdb" \
+SONAR_JDBC_PASSWORD = "xxxxx" \
+
+Salvar arquivo
+
+Construir o container image:
+
+docker build -t sonarqubecustom .
+
+Executar o container com os parâmetros:
+
+docker run -d --name sonarqube -p 9000:9000 -v sonarqube_data:/opt/sonarqube/data -v sonarqube_extensions:/opt/sonarqube/extensions -v sonarqube_logs:/opt/sonarqube/logs -v sonarqube_temp:/opt/sonarqube/temp -e sonar_jdbc_url=jdbc:postgresql://localhost:5432/sonar -e sonar_jdbc_username=sonar -e sonar_jdbc_password=sonar sonarqubecustom
+
+Login Inicial do SonarQube
+User: admin
+Pwd: xxxx
+
+Instalar o plugin do Sonar Scanner no Jenkins
+
+https://www.youtube.com/watch?v=Spzk1lrCgNY
+
+
+Integração do Sonar com o Jenkins
+
+https://www.youtube.com/watch?v=tbr_PeAGdfo
